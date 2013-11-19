@@ -64,6 +64,10 @@ module Tirantes
       append_file 'Rakefile', factories_spec_rake_task
     end
 
+    def configure_exception_notifier
+      copy_file 'exception_notification.rb', 'config/initializers/exception_notification.rb'
+    end
+
     def configure_smtp
       copy_file 'smtp.rb', 'config/initializers/smtp.rb'
 

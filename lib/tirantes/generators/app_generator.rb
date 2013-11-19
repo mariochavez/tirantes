@@ -85,6 +85,7 @@ module Tirantes
     def setup_production_environment
       say 'Setting up the production environment'
       build :configure_smtp
+      build :configure_exception_notifier
     end
 
     def setup_staging_environment
