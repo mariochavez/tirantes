@@ -23,17 +23,17 @@ When 'I ensure no databases exist for "$project_name"' do |project_name|
   run "dropdb #{project_name}_test"
 end
 
-When 'I suspend a project called "$project_name"' do |project_name|
-  suspenders_bin = File.expand_path(File.join('..', '..', 'bin', 'suspenders'), File.dirname(__FILE__))
-  run_simple "#{suspenders_bin} #{project_name}"
+When 'I create a project called "$project_name"' do |project_name|
+  tirantes_bin = File.expand_path(File.join('..', '..', 'bin', 'tirantes'), File.dirname(__FILE__))
+  run_simple "#{tirantes_bin} #{project_name}"
 end
 
-When %r{I suspend a project called "([^"]*)" with:} do |project_name, arguments_table|
-  suspenders_bin = File.expand_path(File.join('..', '..', 'bin', 'suspenders'), File.dirname(__FILE__))
+When %r{I create a project called "([^"]*)" with:} do |project_name, arguments_table|
+  tirantes_bin = File.expand_path(File.join('..', '..', 'bin', 'tirantes'), File.dirname(__FILE__))
   arguments = arguments_table.hashes.inject([]) do |accum, argument|
     accum << "#{argument['argument']}=#{argument['value']}"
   end.join
-  run_simple "#{suspenders_bin} #{project_name} #{arguments}"
+  run_simple "#{tirantes_bin} #{project_name} #{arguments}"
 end
 
 When 'I cd to the "$test_project" root' do |dirname|

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'airbrake'
+gem 'exception_notification'
 gem 'bourbon'
 gem 'coffee-rails'
 gem 'delayed_job_active_record', '>= 4.0.0'
