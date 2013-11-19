@@ -1,6 +1,6 @@
-module Suspenders
+module Tirantes
   class AppBuilder < Rails::AppBuilder
-    include Suspenders::Actions
+    include Tirantes::Actions
 
     def readme
       template 'README.md.erb', 'README.md'
@@ -100,7 +100,7 @@ module Suspenders
     end
 
     def create_application_layout
-      template 'suspenders_layout.html.erb.erb',
+      template 'tirantes_layout.html.erb.erb',
         'app/views/layouts/application.html.erb',
         :force => true
     end
@@ -202,7 +202,7 @@ module Suspenders
 
     def gitignore_files
       remove_file '.gitignore'
-      copy_file 'suspenders_gitignore', '.gitignore'
+      copy_file 'tirantes_gitignore', '.gitignore'
       [
         'app/views/pages',
         'spec/lib',

@@ -1,4 +1,4 @@
-module Suspenders
+module Tirantes
   module Actions
     def concat_file(source, destination)
       contents = IO.read(find_in_source_paths(source))

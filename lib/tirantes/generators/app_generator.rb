@@ -1,7 +1,7 @@
 require 'rails/generators'
 require 'rails/generators/rails/app/app_generator'
 
-module Suspenders
+module Tirantes
   class AppGenerator < Rails::Generators::AppGenerator
     class_option :database, :type => :string, :aliases => '-d', :default => 'postgresql',
       :desc => "Preconfigure for selected database (options: #{DATABASES.join('/')})"
@@ -16,11 +16,11 @@ module Suspenders
       :desc => 'Skip Test::Unit files'
 
     def finish_template
-      invoke :suspenders_customization
+      invoke :tirantes_customization
       super
     end
 
-    def suspenders_customization
+    def tirantes_customization
       invoke :remove_files_we_dont_need
       invoke :customize_gemfile
       invoke :setup_database
@@ -28,7 +28,7 @@ module Suspenders
       invoke :setup_test_environment
       invoke :setup_production_environment
       invoke :setup_staging_environment
-      invoke :create_suspenders_views
+      invoke :create_tirantes_views
       invoke :setup_coffeescript
       invoke :configure_app
       invoke :setup_stylesheets
@@ -92,8 +92,8 @@ module Suspenders
       build :setup_staging_environment
     end
 
-    def create_suspenders_views
-      say 'Creating suspenders views'
+    def create_tirantes_views
+      say 'Creating tirantes views'
       build :create_partials_directory
       build :create_shared_flashes
       build :create_shared_javascripts
@@ -176,7 +176,7 @@ module Suspenders
     end
 
     def outro
-      say 'Congratulations! You just pulled our suspenders.'
+      say 'Congratulations! You just pulled our tirantes.'
       say "Remember to run 'rails generate airbrake' with your API key."
     end
 
@@ -187,7 +187,7 @@ module Suspenders
     protected
 
     def get_builder_class
-      Suspenders::AppBuilder
+      Tirantes::AppBuilder
     end
 
     def using_active_record?

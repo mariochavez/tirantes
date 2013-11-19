@@ -1,12 +1,12 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path('../lib', __FILE__)
-require 'suspenders/version'
+require 'tirantes/version'
 require 'date'
 
 Gem::Specification.new do |s|
-  s.required_ruby_version = '>= 1.9.2'
+  s.required_ruby_version = '>= 1.9.3'
   s.add_dependency 'bundler', '~> 1.3'
-  s.add_dependency 'rails', '4.0.0'
+  s.add_dependency 'rails', '4.0.1'
   s.add_development_dependency 'aruba', '~> 0.5.2'
   s.add_development_dependency 'cucumber', '~> 1.2'
   s.authors = ['thoughtbot']
@@ -24,10 +24,10 @@ rush to build something amazing; don't use it if you like missing deadlines.
   s.files = `git ls-files`.split("\n")
   s.homepage = 'http://github.com/thoughtbot/suspenders'
   s.license = 'MIT'
-  s.name = 'suspenders'
+  s.name = 'tirantes'
   s.rdoc_options = ['--charset=UTF-8']
   s.require_paths = ['lib']
   s.summary = "Generate a Rails app using thoughtbot's best practices."
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.version = Suspenders::VERSION
+  s.version = Tirantes::VERSION
 end
