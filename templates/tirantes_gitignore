@@ -13,3 +13,4 @@ rerun.txt
 tags
 tmp/*
 tmp/**/*
+.env

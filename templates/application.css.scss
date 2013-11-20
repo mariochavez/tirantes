@@ -2,7 +2,13 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-@import 'bourbon';
-@import 'neat';
+@import 'purecss/base';
+@import 'purecss/grids';
+@import 'purecss/forms';
+@import 'purecss/buttons';
+@import 'purecss/menus';
 
+@import 'base/*';
+@import 'layout/*';
+@import 'modules/*';
 ///////////////////////////////////////////////////////////////////////////////

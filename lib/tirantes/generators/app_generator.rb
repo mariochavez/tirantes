@@ -60,6 +60,11 @@ module Tirantes
       end
 
       build :create_database
+
+      say 'If you want to use pg text search, remember to'
+      say 'to generate and migrate pg_search_documents table'
+      say 'rails g pg_search:migration:multisearch'
+      say 'rake db:migrate'
     end
 
     def setup_development_environment
@@ -72,12 +77,9 @@ module Tirantes
 
     def setup_test_environment
       say 'Setting up the test environment'
-      build :enable_factory_girl_syntax
-      build :test_factories_first
-      build :generate_rspec
-      build :configure_rspec
-      build :use_rspec_binstub
-      build :configure_background_jobs_for_rspec
+      build :generate_minitest
+      build :configure_minitest
+      build :configure_background_jobs_for_minitest
       build :enable_database_cleaner
       build :configure_capybara_webkit
     end
@@ -114,10 +116,11 @@ module Tirantes
       build :configure_strong_parameters
       build :configure_time_zone
       build :configure_time_formats
+      build :configure_pretty_formatter
       build :configure_rack_timeout
       build :disable_xml_params
       build :setup_default_rake_task
-      build :configure_unicorn
+      build :configure_puma
       build :setup_foreman
     end
 
@@ -178,7 +181,6 @@ module Tirantes
 
     def outro
       say 'Congratulations! You just pulled our tirantes.'
-      say "Remember to run 'rails generate airbrake' with your API key."
     end
 
     def run_bundle

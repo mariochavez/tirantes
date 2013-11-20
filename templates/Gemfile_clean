@@ -1,22 +1,24 @@
 source 'https://rubygems.org'
 
-gem 'exception_notification'
-gem 'bourbon'
 gem 'coffee-rails'
 gem 'delayed_job_active_record', '>= 4.0.0'
 gem 'email_validator'
-gem 'flutie'
+gem 'exception_notification'
 gem 'high_voltage'
 gem 'jquery-rails'
-gem 'neat'
 gem 'pg'
+gem 'pg_search'
+gem 'pretty_formatter'
+gem 'puma'
+gem 'purecss-rails'
 gem 'rack-timeout'
-gem 'rails', '>= 4.0.0'
+gem 'rails', '>= 4.0.1'
 gem 'recipient_interceptor'
+gem 'restful_controller', require: 'restful'
 gem 'sass-rails'
 gem 'simple_form'
+gem 'slim'
 gem 'uglifier'
-gem 'unicorn'
 
 group :development do
   gem 'better_errors'
@@ -25,17 +27,17 @@ group :development do
 end
 
 group :development, :test do
-  gem 'factory_girl_rails'
-  gem 'rspec-rails', '>= 2.14'
+  gem 'minitest-rails'
 end
 
 group :test do
-  gem 'capybara-webkit', '>= 1.0.0'
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'shoulda-matchers'
-  gem 'simplecov', require: false
-  gem 'timecop'
+  gem 'minitest-colorize'
+  gem 'minitest-focus'
+  gem 'minitest-rails-capybara'
+  gem 'poltergeist'
+  gem 'simplecov'
   gem 'webmock'
 end
 

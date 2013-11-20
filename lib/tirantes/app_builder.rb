@@ -46,22 +46,13 @@ module Tirantes
       generate.request_specs false
       generate.routing_specs false
       generate.stylesheets false
-      generate.test_framework :rspec
+      generate.test_framework :mini_test, :spec => true, :fixture => true
       generate.view_specs false
     end
 
       RUBY
 
       inject_into_class 'config/application.rb', 'Application', config
-    end
-
-    def enable_factory_girl_syntax
-      copy_file 'factory_girl_syntax_rspec.rb', 'spec/support/factory_girl.rb'
-    end
-
-    def test_factories_first
-      copy_file 'factories_spec.rb', 'spec/models/factories_spec.rb'
-      append_file 'Rakefile', factories_spec_rake_task
     end
 
     def configure_exception_notifier
@@ -139,27 +130,30 @@ module Tirantes
     end
 
     def enable_database_cleaner
-      copy_file 'database_cleaner_rspec.rb', 'spec/support/database_cleaner.rb'
+      copy_file 'database_cleaner_minitest.rb', 'test/support/database_cleaner.rb'
     end
 
-    def configure_rspec
-      remove_file 'spec/spec_helper.rb'
-      copy_file 'spec_helper.rb', 'spec/spec_helper.rb'
+    def configure_minitest
+      remove_file 'test/test_helper.rb'
+      copy_file 'test_helper.rb', 'test/test_helper.rb'
     end
 
-    def use_rspec_binstub
-      run 'bundle binstub rspec-core'
-      run 'rm bin/autospec'
-    end
-
-    def configure_background_jobs_for_rspec
-      copy_file 'background_jobs_rspec.rb', 'spec/support/background_jobs.rb'
+    def configure_background_jobs_for_minitest
+      copy_file 'background_jobs_minitest.rb', 'test/support/background_jobs.rb'
       run 'rails g delayed_job:active_record'
     end
 
     def configure_time_zone
       config = <<-RUBY
     config.active_record.default_timezone = :utc
+
+      RUBY
+      inject_into_class 'config/application.rb', 'Application', config
+    end
+
+    def configure_pretty_formatter
+      config = <<-RUBY
+    config.log_formatter = PrettyFormatter.formatter
 
       RUBY
       inject_into_class 'config/application.rb', 'Application', config
@@ -181,16 +175,12 @@ module Tirantes
       action_mailer_host 'production', "#{app_name}.com"
     end
 
-    def generate_rspec
-      generate 'rspec:install'
+    def generate_minitest
+      generate 'rails generate mini_test:install'
     end
 
-    def generate_clearance
-      generate 'clearance:install'
-    end
-
-    def configure_unicorn
-      copy_file 'unicorn.rb', 'config/unicorn.rb'
+    def configure_puma
+      copy_file 'puma.rb', 'config/puma.rb'
     end
 
     def setup_foreman
@@ -202,6 +192,14 @@ module Tirantes
       remove_file 'app/assets/stylesheets/application.css'
       copy_file 'application.css.scss',
         'app/assets/stylesheets/application.css.scss'
+      [
+        'app/assets/stylesheets/base',
+        'app/assets/stylesheets/layout',
+        'app/assets/stylesheets/modules'
+      ].each do |dir|
+        run "mkdir #{dir}"
+        run "touch #{dir}/.keep"
+      end
     end
 
     def gitignore_files
@@ -209,12 +207,12 @@ module Tirantes
       copy_file 'tirantes_gitignore', '.gitignore'
       [
         'app/views/pages',
-        'spec/lib',
-        'spec/controllers',
-        'spec/helpers',
-        'spec/support/matchers',
-        'spec/support/mixins',
-        'spec/support/shared_examples'
+        'test/lib',
+        'test/controllers',
+        'test/helpers',
+        'test/support/matchers',
+        'test/support/mixins',
+        'test/support/shared_examples'
       ].each do |dir|
         run "mkdir #{dir}"
         run "touch #{dir}/.keep"
@@ -274,7 +272,7 @@ module Tirantes
 
     def setup_default_rake_task
       append_file 'Rakefile' do
-        "task(:default).clear\ntask :default => [:spec]\n"
+        "task(:default).clear\ntask :default => ['minitest:all']\n"
       end
     end
 
@@ -285,10 +283,6 @@ module Tirantes
         support_bin = File.expand_path(File.join('..', '..', '..', 'features', 'support', 'bin'))
         "PATH=#{support_bin}:$PATH"
       end
-    end
-
-    def factories_spec_rake_task
-      IO.read find_in_source_paths('factories_spec_rake_task.rb')
     end
   end
 end
