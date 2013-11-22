@@ -120,6 +120,7 @@ module Tirantes
       build :configure_simple_form
       build :configure_rack_timeout
       build :disable_xml_params
+      build :setup_secret_token
       build :setup_default_rake_task
       build :configure_puma
       build :setup_foreman

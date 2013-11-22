@@ -83,7 +83,7 @@ module Tirantes
     end
 
     def setup_secret_token
-      template 'templates/secret_token.rb.erb', 'config/initializers/secret_token.rb', :force => true
+      template 'secret_token.rb.erb', 'config/initializers/secret_token.rb', :force => true
     end
 
     def create_partials_directory
