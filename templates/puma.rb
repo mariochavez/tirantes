@@ -1,3 +1,5 @@
+# http://ctshryock.com/posts/2012/07/12/running-rails-with-puma-on-heroku.html
+
 environment ENV['RACK_ENV']
 threads 0,5
 

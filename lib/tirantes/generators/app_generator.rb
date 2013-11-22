@@ -117,6 +117,7 @@ module Tirantes
       build :configure_time_zone
       build :configure_time_formats
       build :configure_pretty_formatter
+      build :configure_simple_form
       build :configure_rack_timeout
       build :disable_xml_params
       build :setup_default_rake_task
@@ -181,6 +182,7 @@ module Tirantes
 
     def outro
       say 'Congratulations! You just pulled our tirantes.'
+      say 'Please execute bin/setup to complete this application setup'
     end
 
     def run_bundle

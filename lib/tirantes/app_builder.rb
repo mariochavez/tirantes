@@ -82,6 +82,10 @@ module Tirantes
         "Mail.register_interceptor RecipientInterceptor.new(ENV['EMAIL_RECIPIENTS'])\n"
     end
 
+    def setup_secret_token
+      template 'templates/secret_token.rb.erb', 'config/initializers/secret_token.rb', :force => true
+    end
+
     def create_partials_directory
       empty_directory 'app/views/application'
     end
@@ -159,6 +163,11 @@ module Tirantes
       inject_into_class 'config/application.rb', 'Application', config
     end
 
+    def configure_simple_form
+      run 'rails g simple_form:install'
+      copy_file 'simple_form_purecss.rb', 'config/simple_form_purecss.rb'
+    end
+
     def configure_time_formats
       remove_file 'config/locales/en.yml'
       copy_file 'config_locales_en.yml', 'config/locales/en.yml'
@@ -176,7 +185,7 @@ module Tirantes
     end
 
     def generate_minitest
-      generate 'rails generate mini_test:install'
+      generate 'rails g mini_test:install'
     end
 
     def configure_puma
@@ -209,6 +218,8 @@ module Tirantes
         'app/views/pages',
         'test/lib',
         'test/controllers',
+        'test/models',
+        'test/integration',
         'test/helpers',
         'test/support/matchers',
         'test/support/mixins',
