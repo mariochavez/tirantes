@@ -14,3 +14,4 @@ tags
 tmp/*
 tmp/**/*
 .env
+.sample.env
