@@ -8,6 +8,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/rails'
 require 'minitest/rails/capybara'
+require 'capybara/poltergeist'
 require 'minitest/focus'
 require 'minitest/colorize'
 require 'webmock/minitest'
@@ -32,4 +33,6 @@ class Minitest::Unit::TestCase
 end
 
 Capybara.javascript_driver = :poltergeist
+Capybara.default_driver = :poltergeist
+
 WebMock.disable_net_connect!(allow_localhost: true)
