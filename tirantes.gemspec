@@ -4,16 +4,16 @@ require 'tirantes/version'
 require 'date'
 
 Gem::Specification.new do |s|
-  s.required_ruby_version = '>= 1.9.3'
-  s.add_dependency 'bundler', '~> 1.3'
-  s.add_dependency 'rails', '4.0.1'
+  s.required_ruby_version = '>= 2.1.0'
+  s.add_dependency 'bundler', '~> 1.6.0.rc'
+  s.add_dependency 'rails', '~>4.1.0.rc1'
   s.add_development_dependency 'aruba', '~> 0.5.2'
   s.add_development_dependency 'cucumber', '~> 1.2'
   s.authors = ['thoughtbot']
   s.date = Date.today.strftime('%Y-%m-%d')
 
   s.description = <<-HERE
-Suspenders is a base Rails project that you can upgrade. It is used by
+Tirantes is a base Rails project that you can upgrade. It is used by
 thoughtbot to get a jump start on a working app. Use Suspenders if you're in a
 rush to build something amazing; don't use it if you like missing deadlines.
   HERE

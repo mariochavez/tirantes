@@ -275,8 +275,8 @@ git remote add production git@heroku.com:#{app_name}-production.git
 
     def remove_routes_comment_lines
       replace_in_file 'config/routes.rb',
-        /Application\.routes\.draw do.*end/m,
-        "Application.routes.draw do\nend"
+        /Rails\.application\.routes\.draw do.*end/m,
+        "Rails\.application.routes.draw do\nend"
     end
 
     def disable_xml_params

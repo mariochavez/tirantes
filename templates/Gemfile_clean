@@ -12,7 +12,7 @@ gem 'pretty_formatter'
 gem 'puma'
 gem 'purecss-rails'
 gem 'rack-timeout'
-gem 'rails', '>= 4.0.1'
+gem 'rails', '>= 4.1.0.rc1'
 gem 'recipient_interceptor'
 gem 'restful_controller', require: 'restful'
 gem 'sass-rails'
@@ -27,15 +27,15 @@ group :development do
 end
 
 group :development, :test do
-  gem 'minitest-rails'
+  gem 'minitest-rails', '~> 1.0.0.beta4'
 end
 
 group :test do
   gem 'database_cleaner'
   gem 'launchy'
-  gem 'minitest-colorize'
-  gem 'minitest-focus'
-  gem 'minitest-rails-capybara'
+  #gem 'minitest-colorize'
+  #gem 'minitest-focus'
+  #gem 'minitest-rails-capybara'
   gem 'poltergeist'
   gem 'simplecov'
   gem 'webmock'

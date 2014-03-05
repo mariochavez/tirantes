@@ -6,12 +6,13 @@ ENV['RAILS_ENV'] = 'test'
 require File.expand_path('../../config/environment', __FILE__)
 
 require 'rails/test_help'
+require 'minitest/autorun'
 require 'minitest/rails'
-require 'minitest/rails/capybara'
+#require 'minitest/rails/capybara'
 require 'capybara/poltergeist'
-require 'minitest/focus'
-require 'minitest/colorize'
-require 'webmock/minitest'
+#require 'minitest/focus'
+#require 'minitest/colorize'
+#require 'webmock/minitest'
 require 'database_cleaner'
 
 module Minitest::Expectations
