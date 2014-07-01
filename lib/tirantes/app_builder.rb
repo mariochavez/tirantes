@@ -285,7 +285,7 @@ git remote add production git@heroku.com:#{app_name}-production.git
 
     def setup_default_rake_task
       append_file 'Rakefile' do
-        "task(:default).clear\ntask :default => ['minitest:all']\n"
+        "task(:default).clear\ntask :default => ['test:all']\n"
       end
     end
 
