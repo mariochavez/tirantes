@@ -34,7 +34,28 @@ module Tirantes
     end
 
     def provide_setup_script
-      copy_file 'bin_setup', 'bin/setup'
+      foreman = <<-RUBY
+      # Set up Rails app. Run this script immediately after cloning the codebase.
+      # https://github.com/thoughtbot/guides/tree/master/protocol
+
+      # Set up configurable environment variables
+      if [ ! -f .env ]; then
+        cp .sample.env .env
+      fi
+
+      # Pick a port for Foreman
+      echo "port: 7000" > .foreman
+
+      # Set up DNS via Pow
+      if [ -d ~/.pow ]
+      then
+        echo 7000 > ~/.pow/`basename $PWD`
+      else
+        echo "Pow not set up but the team uses it for this project. Setup: http://goo.gl/RaDPO"
+      fi
+      RUBY
+
+      append_file 'bin/setup', foreman
       run 'chmod a+x bin/setup'
     end
 
