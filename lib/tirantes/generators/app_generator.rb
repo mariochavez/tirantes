@@ -107,8 +107,8 @@ module Tirantes
       say 'Configuring app'
       build :configure_action_mailer
       build :configure_strong_parameters
-      build :configure_time_zone
       build :configure_time_formats
+      build :configure_active_job
       build :configure_pretty_formatter
       build :configure_rack_timeout
       build :setup_secret_token

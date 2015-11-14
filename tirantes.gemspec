@@ -19,7 +19,7 @@ a working app Tirantes can help you there.
   HERE
 
   s.email = 'mario.chavez@fmail.com'
-  s.executables = `git ls-files -- bin/*`.split("\n").map { |file| File.basename(file) }
+  s.executables = ['tirantes']
   s.extra_rdoc_files = %w[README.md LICENSE]
   s.files = `git ls-files`.split("\n")
   s.homepage = 'https://github.com/mariochavez/tirantes'

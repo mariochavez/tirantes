@@ -156,20 +156,20 @@ module Tirantes
       run 'rails g delayed_job:active_record'
     end
 
-    def configure_time_zone
-      config = <<-RUBY
-    config.active_record.default_timezone = :utc
-
-      RUBY
-      inject_into_class 'config/application.rb', 'Application', config
-    end
-
     def configure_pretty_formatter
       config = <<-RUBY
     config.log_formatter = PrettyFormatter.formatter
 
       RUBY
       inject_into_class 'config/application.rb', 'Application', config
+    end
+
+    def configure_active_job
+      config = <<-RUBY
+    config.active_job.queue_adapter = :delayed_job
+      RUBY
+
+      inject_into_class "config/application.rb", "Application", config
     end
 
     def configure_time_formats
@@ -198,7 +198,7 @@ module Tirantes
     end
 
     def generate_minitest
-      generate 'rails g mini_test:install'
+      generate 'rails g minitest:install'
     end
 
     def configure_puma
