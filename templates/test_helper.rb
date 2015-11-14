@@ -1,5 +1,7 @@
-require 'simplecov'
-SimpleCov.start 'rails'
+if ENV.fetch("COVERAGE", false)
+  require "simplecov"
+  SimpleCov.start "rails"
+end
 
 ENV['RAILS_ENV'] = 'test'
 
@@ -8,12 +10,8 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'minitest/autorun'
 require 'minitest/rails'
-#require 'minitest/rails/capybara'
-require 'capybara/poltergeist'
-#require 'minitest/focus'
-#require 'minitest/colorize'
-#require 'webmock/minitest'
-require 'database_cleaner'
+require 'minitest/rails/capybara'
+require 'webmock/minitest'
 
 module Minitest::Expectations
   infect_an_assertion :assert_redirected_to, :must_redirect_to
@@ -27,13 +25,7 @@ class ActiveSupport::TestCase
   fixtures :all
 end
 
-class Minitest::Unit::TestCase
-  class << self
-    alias_method :context, :describe
-  end
-end
-
-Capybara.javascript_driver = :poltergeist
-Capybara.default_driver = :poltergeist
+Capybara.javascript_driver = :webkit
+Capybara.default_driver = :webkit
 
 WebMock.disable_net_connect!(allow_localhost: true)

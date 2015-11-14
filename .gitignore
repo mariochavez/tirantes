@@ -6,4 +6,6 @@
 !bin/suspenders
 pkg
 test_project
-tmp/aruba
+*.swp
+*.un~
+tags

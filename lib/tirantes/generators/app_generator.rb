@@ -21,7 +21,6 @@ module Tirantes
     end
 
     def tirantes_customization
-      invoke :remove_files_we_dont_need
       invoke :customize_gemfile
       invoke :setup_database
       invoke :setup_development_environment
@@ -39,11 +38,6 @@ module Tirantes
       invoke :create_heroku_apps
       invoke :create_github_repo
       invoke :outro
-    end
-
-    def remove_files_we_dont_need
-      build :remove_public_index
-      build :remove_rails_logo_image
     end
 
     def customize_gemfile
@@ -73,6 +67,7 @@ module Tirantes
       build :raise_on_unpermitted_parameters
       build :provide_setup_script
       build :configure_generators
+      build :configure_tools
     end
 
     def setup_test_environment
@@ -80,8 +75,6 @@ module Tirantes
       build :generate_minitest
       build :configure_minitest
       build :configure_background_jobs_for_minitest
-      build :enable_database_cleaner
-      build :configure_capybara_webkit
     end
 
     def setup_production_environment
@@ -101,29 +94,28 @@ module Tirantes
       build :create_shared_flashes
       build :create_shared_javascripts
       build :create_application_layout
+      build :download_es_locales
+      build :download_purecss
     end
 
     def setup_coffeescript
       say 'Setting up CoffeeScript defaults'
-      build :remove_turbolinks
       build :create_common_javascripts
     end
 
     def configure_app
       say 'Configuring app'
       build :configure_action_mailer
-      build :blacklist_active_record_attributes
       build :configure_strong_parameters
       build :configure_time_zone
       build :configure_time_formats
       build :configure_pretty_formatter
-      build :configure_simple_form
       build :configure_rack_timeout
-      build :disable_xml_params
       build :setup_secret_token
       build :setup_default_rake_task
       build :configure_puma
       build :setup_foreman
+      build :download_es_locales
     end
 
     def setup_stylesheets

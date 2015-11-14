@@ -5,7 +5,7 @@ require 'date'
 
 Gem::Specification.new do |s|
   s.required_ruby_version = '>= 2.1.0'
-  s.add_dependency 'bundler', '~> 1.7.0'
+  s.add_dependency 'bundler', '~> 1.10.0'
   s.add_dependency 'rails', '~>4.2.0'
   s.add_development_dependency 'aruba', '~> 0.5.2'
   s.add_development_dependency 'cucumber', '~> 1.2'

@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 gem 'coffee-rails'
 gem 'delayed_job_active_record', '>= 4.0.0'
-gem 'email_validator'
 gem 'exception_notification'
 gem 'high_voltage'
 gem 'jquery-rails'
@@ -10,22 +9,23 @@ gem 'pg'
 gem 'pg_search'
 gem 'pretty_formatter'
 gem 'puma'
-gem 'purecss-rails'
 gem 'rack-timeout'
 gem 'rails', '>= 4.2.0'
 gem 'recipient_interceptor'
 gem 'restful_controller', require: 'restful'
 gem 'sass-rails'
-gem 'simple_form'
-gem 'slim'
+gem 'turbolinks', github: 'rails/turbolinks'
 gem 'uglifier'
 
 group :development do
+  gem 'brakeman', require: false
+  gem 'bullet'
   gem 'byebug'
-  gem 'web-console', '~> 2.0'
-  gem 'better_errors'
-  gem 'binding_of_caller'
   gem 'foreman'
+  gem 'pry-rails'
+  gem 'reek', require: false
+  gem 'rubocop', require: false
+  gem 'web-console', '~> 2.0'
 end
 
 group :development, :test do
@@ -34,13 +34,11 @@ group :development, :test do
 end
 
 group :test do
-  gem 'database_cleaner'
+  gem 'capybara-webkit'
   gem 'launchy'
-  #gem 'minitest-colorize'
-  #gem 'minitest-focus'
   gem 'minitest-rails-capybara'
-  gem 'poltergeist'
-  gem 'simplecov'
+  gem 'simplecov', require: false
+  gem 'timecop'
   gem 'webmock'
 end
 

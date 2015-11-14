@@ -6,14 +6,6 @@ module Tirantes
       template 'README.md.erb', 'README.md'
     end
 
-    def remove_public_index
-      remove_file 'public/index.html'
-    end
-
-    def remove_rails_logo_image
-      remove_file 'app/assets/images/rails.png'
-    end
-
     def raise_on_delivery_errors
       replace_in_file 'config/environments/development.rb',
         'raise_delivery_errors = false', 'raise_delivery_errors = true'
@@ -67,7 +59,7 @@ module Tirantes
       generate.request_specs false
       generate.routing_specs false
       generate.stylesheets false
-      generate.test_framework :mini_test, :spec => true, :fixture => true
+      generate.test_framework :mini_test, :spec => false, :fixture => true
       generate.view_specs false
     end
 
@@ -94,6 +86,12 @@ module Tirantes
 
       inject_into_file 'config/environments/production.rb', config,
         :after => 'config.action_mailer.raise_delivery_errors = false'
+    end
+
+    def configure_tools
+      copy_file 'reek.rake', 'lib/tasks/reek.rake'
+      copy_file 'rubocop.rake', 'lib/tasks/rubocop.rake'
+      copy_file 'bullet.rb', 'config/initializers/bullet.rb'
     end
 
     def setup_staging_environment
@@ -125,12 +123,6 @@ module Tirantes
         :force => true
     end
 
-    def remove_turbolinks
-      replace_in_file 'app/assets/javascripts/application.js',
-        /\/\/= require turbolinks\n/,
-        ''
-    end
-
     def create_common_javascripts
       directory 'javascripts', 'app/assets/javascripts'
     end
@@ -152,10 +144,6 @@ module Tirantes
     def set_ruby_to_version_being_used
       inject_into_file 'Gemfile', "\n\nruby '#{RUBY_VERSION}'",
         after: /source 'https:\/\/rubygems.org'/
-    end
-
-    def enable_database_cleaner
-      copy_file 'database_cleaner_minitest.rb', 'test/support/database_cleaner.rb'
     end
 
     def configure_minitest
@@ -184,14 +172,18 @@ module Tirantes
       inject_into_class 'config/application.rb', 'Application', config
     end
 
-    def configure_simple_form
-      run 'rails g simple_form:install'
-      copy_file 'simple_form_purecss.rb', 'config/simple_form_purecss.rb'
-    end
-
     def configure_time_formats
       remove_file 'config/locales/en.yml'
       copy_file 'config_locales_en.yml', 'config/locales/en.yml'
+    end
+
+    def download_es_locales
+      copy_file 'config_locales_es.yml', 'config/locales/es.yml'
+    end
+
+    def download_purecss
+      copy_file 'pure-min.css', 'vendor/assets/stylesheets/pure-min.css'
+      copy_file 'grids-responsive-min.css', 'vendor/assets/stylesheets/grids-responsive-min.css'
     end
 
     def configure_rack_timeout
@@ -199,8 +191,8 @@ module Tirantes
     end
 
     def configure_action_mailer
-      action_mailer_host 'development', "#{app_name}.local"
-      action_mailer_host 'test', 'www.example.com'
+      action_mailer_host 'development', "#{app_name}.dev"
+      action_mailer_host 'test',  "#{app_name}.test"
       action_mailer_host 'staging', "staging.#{app_name}.com"
       action_mailer_host 'production', "#{app_name}.com"
     end
@@ -298,10 +290,6 @@ git remote add production git@heroku.com:#{app_name}-production.git
       replace_in_file 'config/routes.rb',
         /Rails\.application\.routes\.draw do.*end/m,
         "Rails\.application.routes.draw do\nend"
-    end
-
-    def disable_xml_params
-      copy_file 'disable_xml_params.rb', 'config/initializers/disable_xml_params.rb'
     end
 
     def setup_default_rake_task

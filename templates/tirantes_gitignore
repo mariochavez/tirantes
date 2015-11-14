@@ -9,6 +9,7 @@ db/*.sqlite3
 db/schema.rb
 log/*
 public/system
+/public/assets
 rerun.txt
 tags
 tmp/*
